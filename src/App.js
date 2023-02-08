@@ -6,11 +6,15 @@ import EditarEmpleado from './components/EditarEmpleado';
 
 import  { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
+//Redux 
+import { Provider } from 'react-redux';
+import store from './store';
+
 function App() {
   return (
     <Router >
+      <Provider store={store}>
         <Header />
-
         <div>
           <Routes>
             <Route exact path='/' element={<Empleados/>}/>
@@ -18,6 +22,7 @@ function App() {
             <Route exact path='/employees/edit/:id' element={<EditarEmpleado/>}/>
           </Routes>
         </div>
+      </Provider>
     </Router>
   );
 }
