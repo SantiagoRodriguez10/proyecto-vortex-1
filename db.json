@@ -1,0 +1,44 @@
+{
+    "employees": [
+      {
+        "id": 1,
+        "name": "Jon",
+        "last_name": "Snow",
+        "email": "jon@snow.com",
+        "phone_number": 351153531,
+        "hire_date": "2018-04-23T18:25:43.511Z" ,
+        "salary": 30000,
+        "commission": 40
+      },
+      {
+        "id": 2,
+        "name": "Jaimito",
+        "last_name": "Lannister",
+        "email": "principe@encantador.com",
+        "phone_number": 315635281,
+        "hire_date": "2018-04-23T18:25:43.511Z" ,
+        "salary": 40000,
+        "commission": 41
+      },
+      {
+        "id": 3,
+        "name": "Cersei",
+        "last_name": "Lannister",
+        "email": "cersei@lannister.com",
+        "phone_number": 31424753,
+        "hire_date": "2018-04-23T18:25:43.511Z" ,
+        "salary": 35000,
+        "commission": 60
+      },
+      {
+        "id": 4,
+        "name": "Ned",
+        "last_name": "Stark",
+        "email": "head@less.com",
+        "phone_number": 3824569,
+        "hire_date": "2018-04-23T18:25:43.511Z" ,
+        "salary": 37000,
+        "commission": 40
+      }
+]
+}
