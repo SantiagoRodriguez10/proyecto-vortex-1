@@ -1,0 +1,5 @@
+import {
+    AGREGAR_EMPLEADO,
+    AGREGAR_EMPLEADO_EXITO,
+    AGREGAR_EMPLEADO_ERROR
+} from '../types'
