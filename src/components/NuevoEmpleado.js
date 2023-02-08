@@ -23,7 +23,7 @@ function NuevoEmpleado() {
         <CardContent>
           <br></br>
           <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151"}}>
-            Agregar Nuevo Employee
+            Agregar Nuevo Empleado
           </h2>
           <br></br>
           <form>
