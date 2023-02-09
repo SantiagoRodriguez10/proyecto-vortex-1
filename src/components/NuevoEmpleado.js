@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,7 +16,56 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import { maxWidth } from '@mui/system';
 
+//Actions de Redux 
+import { crearNuevoEmpleadoAction } from '../actions/empleadoActions.js'
+
 function NuevoEmpleado() {
+
+  //State del componente
+  const [ nombre, guardarNombre ] = useState('')
+  const [ apellido, guardarApellido ] = useState('')
+  const  [email, guardarEmail ] = useState('')
+  const [ telefono, guardarTelefono ] = useState(0)
+  const [ fechaAlta, guardarFechaAlta]  = useState('')
+  const[ salario, guardarSalario ] = useState(0)
+  const[ comision, guardarComision ] = useState(0)
+  
+  //Funcion dispatch para componente
+  const dispatch = useDispatch()
+
+  //Mandar a llamar  al action de productoAction
+  const agregarEmpleado = empleado => dispatch( crearNuevoEmpleadoAction(empleado) )
+
+  //Cuando el usuario haga submit
+  const submitNuevoEmpleado = e => {
+      e.preventDefault()
+
+
+      //Validar formulario
+      if( nombre.trim() === '' || 
+          apellido.trim() === '' || 
+          email.trim() === '' || 
+          telefono <= 0 ||
+          fechaAlta === null ||
+          salario === 0 ||
+          comision === 0
+          ){
+            return
+          }
+      //Si no hay errores
+
+      //Crear el nuevo empleado
+      agregarEmpleado({
+        nombre,
+        apellido,
+        email,
+        telefono,
+        fechaAlta,
+        salario,
+        comision
+      })
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Card style={{ maxWidth: 545, boxShadow:'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px', marginTop: 30, marginBottom: 50 }} >
@@ -26,7 +76,7 @@ function NuevoEmpleado() {
             Agregar Nuevo Empleado
           </h2>
           <br></br>
-          <form>
+          <form onSubmit={submitNuevoEmpleado}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} sx={{ justifyContent: 'space-between' }}>
               <Grid item xs={12} md={12}>
@@ -40,6 +90,8 @@ function NuevoEmpleado() {
                     name="name"
                     placeholder= 'Nombre del empleado'
                     variant="outlined"
+                    value={nombre}
+                    onChange={e=> guardarNombre(e.target.value)}
                   />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -53,6 +105,8 @@ function NuevoEmpleado() {
                     name="lastname"
                     placeholder='Apellido del empleado'
                     variant="outlined"
+                    value={apellido}
+                    onChange={e=> guardarApellido(e.target.value)}
                   />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -66,6 +120,8 @@ function NuevoEmpleado() {
                     name="email"
                     placeholder='Email del empleado'
                     variant="outlined"
+                    value={email}
+                    onChange={e=> guardarEmail(e.target.value)}
                   />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -78,6 +134,8 @@ function NuevoEmpleado() {
                     name="phone_number"
                     placeholder='Teléfono del empleado'
                     variant="outlined"
+                    value={telefono}
+                    onChange={e=> guardarTelefono(Number(e.target.value))}
                   />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -90,6 +148,8 @@ function NuevoEmpleado() {
                     name="hire_date"
                     placeholder='Fecha de alta del empleado'
                     variant="outlined"
+                    value={fechaAlta}
+                    onChange={e=> guardarFechaAlta(e.target.value)}
                   />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -100,8 +160,11 @@ function NuevoEmpleado() {
                 <Typography>Salario:</Typography>
                 </Box>
                   <Input
+                    type='number'
                     id="standard-adornment-amount"
                     startAdornment={<InputAdornment position="start">$ARS</InputAdornment>}
+                    value={salario}
+                    onChange={e=> guardarSalario(Number(e.target.value))}
                   />
                 </FormControl>
               </Grid>
@@ -113,8 +176,11 @@ function NuevoEmpleado() {
                 <Typography>Comisión:</Typography>
                 </Box>
                   <Input
+                    type='number'
                     id="standard-adornment-amount"
                     startAdornment={<InputAdornment position="start">$ARS</InputAdornment>}
+                    value={comision}
+                    onChange={e=> guardarComision(Number(e.target.value))}
                   />
                 </FormControl>
               </Grid>
@@ -125,8 +191,8 @@ function NuevoEmpleado() {
         <br></br>
         <CardActions sx={{ display: 'flex', justifyContent: 'center' }} >
         <Stack direction="row" spacing={2}>
-      <Button variant="contained" endIcon={<SendIcon />}>
-        Guardar
+      <Button onClick={submitNuevoEmpleado} variant="contained" endIcon={<SendIcon />}>
+        Guardar Nuevo Empleado
       </Button>
     </Stack>
         </CardActions>

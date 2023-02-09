@@ -13,6 +13,18 @@ const initialState = {
 
 export default function( state = initialState, action ) {
     switch(action.type) {
+        case AGREGAR_EMPLEADO:
+            return {
+                ...state,
+                loading: action.payload
+            }
+        case AGREGAR_EMPLEADO_EXITO:
+            return {
+                ...state,
+                loading: false,
+                empleados: [...state.empleados, action.payload]
+            }
+
         default:
             return state
     }
