@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -18,6 +19,7 @@ import { maxWidth } from '@mui/system';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
+
 //Actions de Redux 
 import { crearNuevoEmpleadoAction } from '../actions/empleadoActions.js'
 
@@ -25,7 +27,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function NuevoEmpleado({history}) {
+function NuevoEmpleado() {
+
+  const navigate = useNavigate()
 
   //State del componente
   const [ nombre, guardarNombre ] = useState('')
@@ -87,7 +91,14 @@ function NuevoEmpleado({history}) {
         salario,
         comision
       })
+      
+      //Redireccionar
+      navigate('/')
+
+      //Error 
       handleClick()
+
+      
   }
 
   return (
