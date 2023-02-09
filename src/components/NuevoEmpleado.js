@@ -15,11 +15,17 @@ import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import { maxWidth } from '@mui/system';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 //Actions de Redux 
 import { crearNuevoEmpleadoAction } from '../actions/empleadoActions.js'
 
-function NuevoEmpleado() {
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+function NuevoEmpleado({history}) {
 
   //State del componente
   const [ nombre, guardarNombre ] = useState('')
@@ -33,13 +39,30 @@ function NuevoEmpleado() {
   //Funcion dispatch para componente
   const dispatch = useDispatch()
 
+  //Accedo al state del store con useSelector
+  const cargando = useSelector(state => state.empleados.loading)
+  const error = useSelector(state => state.empleados.error)
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   //Mandar a llamar  al action de productoAction
   const agregarEmpleado = empleado => dispatch( crearNuevoEmpleadoAction(empleado) )
 
   //Cuando el usuario haga submit
   const submitNuevoEmpleado = e => {
       e.preventDefault()
-
 
       //Validar formulario
       if( nombre.trim() === '' || 
@@ -64,6 +87,7 @@ function NuevoEmpleado() {
         salario,
         comision
       })
+      handleClick()
   }
 
   return (
@@ -187,6 +211,15 @@ function NuevoEmpleado() {
             </Grid>
           </Box>
           </form>
+          {cargando ? <p>Cargando...</p> : null}
+          <Stack spacing={2} sx={{ width: '100%' }}>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}> 
+            {error ? <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                      Hubo un error al crear el empleado!
+                    </Alert>
+            : null}
+            </Snackbar>
+          </Stack>
         </CardContent>
         <br></br>
         <CardActions sx={{ display: 'flex', justifyContent: 'center' }} >

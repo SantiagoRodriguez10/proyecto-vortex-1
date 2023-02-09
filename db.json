@@ -1,44 +1,94 @@
 {
-    "employees": [
-      {
-        "id": 1,
-        "name": "Jon",
-        "last_name": "Snow",
-        "email": "jon@snow.com",
-        "phone_number": 351153531,
-        "hire_date": "2018-04-23T18:25:43.511Z" ,
-        "salary": 30000,
-        "commission": 40
-      },
-      {
-        "id": 2,
-        "name": "Jaimito",
-        "last_name": "Lannister",
-        "email": "principe@encantador.com",
-        "phone_number": 315635281,
-        "hire_date": "2018-04-23T18:25:43.511Z" ,
-        "salary": 40000,
-        "commission": 41
-      },
-      {
-        "id": 3,
-        "name": "Cersei",
-        "last_name": "Lannister",
-        "email": "cersei@lannister.com",
-        "phone_number": 31424753,
-        "hire_date": "2018-04-23T18:25:43.511Z" ,
-        "salary": 35000,
-        "commission": 60
-      },
-      {
-        "id": 4,
-        "name": "Ned",
-        "last_name": "Stark",
-        "email": "head@less.com",
-        "phone_number": 3824569,
-        "hire_date": "2018-04-23T18:25:43.511Z" ,
-        "salary": 37000,
-        "commission": 40
-      }
-]
+  "employees": [
+    {
+      "id": 1,
+      "name": "Jon",
+      "last_name": "Snow",
+      "email": "jon@snow.com",
+      "phone_number": 351153531,
+      "hire_date": "2018-04-23T18:25:43.511Z",
+      "salary": 30000,
+      "commission": 40
+    },
+    {
+      "id": 2,
+      "name": "Jaimito",
+      "last_name": "Lannister",
+      "email": "principe@encantador.com",
+      "phone_number": 315635281,
+      "hire_date": "2018-04-23T18:25:43.511Z",
+      "salary": 40000,
+      "commission": 41
+    },
+    {
+      "id": 3,
+      "name": "Cersei",
+      "last_name": "Lannister",
+      "email": "cersei@lannister.com",
+      "phone_number": 31424753,
+      "hire_date": "2018-04-23T18:25:43.511Z",
+      "salary": 35000,
+      "commission": 60
+    },
+    {
+      "id": 4,
+      "name": "Ned",
+      "last_name": "Stark",
+      "email": "head@less.com",
+      "phone_number": 3824569,
+      "hire_date": "2018-04-23T18:25:43.511Z",
+      "salary": 37000,
+      "commission": 40
+    },
+    {
+      "nombre": "Gala",
+      "apellido": "Rodriguez",
+      "email": "santiagorodriguezardini@gmail.com",
+      "telefono": 3515311527,
+      "fechaAlta": "2023-02-09",
+      "salario": 151515,
+      "comision": 1151515,
+      "id": 5
+    },
+    {
+      "nombre": "Gala",
+      "apellido": "Ario",
+      "email": "santiagorodriguezardini@gmail.com",
+      "telefono": 154415,
+      "fechaAlta": "2023-02-09",
+      "salario": 181145145,
+      "comision": 145541154,
+      "id": 6
+    },
+    {
+      "nombre": "Gala",
+      "apellido": "Ario",
+      "email": "santiagorodriguezardini@gmail.com",
+      "telefono": 154415,
+      "fechaAlta": "2023-02-09",
+      "salario": 181145145,
+      "comision": 145541154,
+      "id": 7
+    },
+    {
+      "nombre": "Gala",
+      "apellido": "Rodriguez",
+      "email": "codigo@correo.com",
+      "telefono": 5262265,
+      "fechaAlta": "2001-07-11",
+      "salario": 1111,
+      "comision": 1151,
+      "id": 8
+    },
+    {
+      "nombre": "Gala",
+      "apellido": "Rodriguez",
+      "email": "codigo@correo.com",
+      "telefono": 5262265,
+      "fechaAlta": "2001-07-11",
+      "salario": 1111,
+      "comision": 1151,
+      "id": 9
+    }
+  ]
 }

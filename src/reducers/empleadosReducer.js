@@ -24,6 +24,12 @@ export default function( state = initialState, action ) {
                 loading: false,
                 empleados: [...state.empleados, action.payload]
             }
+        case AGREGAR_EMPLEADO_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default:
             return state
