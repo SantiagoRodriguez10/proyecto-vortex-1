@@ -1,9 +1,12 @@
-import React from 'react'
-import Card from '@mui/material/Card';
+import React, { useEffect } from 'react'
 import { CardContent, Grid, TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
+
+//Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { obtenerEmpleadosAction } from '../actions/empleadoActions';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -30,7 +33,7 @@ const columns = [
   {
     field: 'salary',
     headerName: 'Salary',
-    type: Number,
+    type: 'number',
     width: 160
   },
   {
@@ -64,6 +67,18 @@ const rows = [
 ];
 
 function Empleados() {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=> {
+
+    //Consultar Api
+    const cargarEmpleados = () => dispatch( obtenerEmpleadosAction() );
+    cargarEmpleados()
+
+  }, [])
+
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'center' }}>

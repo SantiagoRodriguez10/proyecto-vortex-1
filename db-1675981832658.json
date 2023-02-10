@@ -129,16 +129,6 @@
       "salario": 232323,
       "comision": 232323,
       "id": 13
-    },
-    {
-      "nombre": "Gala",
-      "apellido": "Rodriguez",
-      "email": "santiagorodriguezardini@gmail.com",
-      "telefono": 42342,
-      "fechaAlta": "2023-02-14",
-      "salario": 23423,
-      "comision": 23423,
-      "id": 14
     }
   ]
 }

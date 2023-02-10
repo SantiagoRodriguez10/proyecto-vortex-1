@@ -8,7 +8,7 @@ import {
 } from '../types'
 import empleadoAxios from '../config/axios'
 
-//Importamos SweetAlert2
+//Importo SweetAlert2
 import Swal from 'sweetalert2'
 
 //Creando nuevos empleados
@@ -60,3 +60,33 @@ const agregarEmpleadoError = estado => ({
     type: AGREGAR_EMPLEADO_ERROR,
     payload: estado
 })  
+
+//Funcion que descargan los empleados en la db
+export function obtenerEmpleadosAction() {
+    return async (dispatch) => {
+        dispatch( descargarEmpleados() )
+
+        try {
+            const respuesta = await empleadoAxios.get('/employees')
+            dispatch( descargaEmpleadosExitosa(respuesta.data) )
+        } catch (error) {
+            console.log(error)
+            dispatch( descargaEmpleadosError() )
+        }
+    }
+}
+
+const descargarEmpleados = () => ({
+    type: COMENZAR_DESCARGA_EMPLEADOS,
+    payload: true
+})
+
+const descargaEmpleadosExitosa = empleados => ({
+    type: DESCARGA_EMPLEADOS_EXITO,
+    payload: empleados
+})
+
+const descargaEmpleadosError = () => ({
+    type: DESCARGA_EMPLEADOS_ERROR,
+    payload: true
+})
