@@ -3,7 +3,8 @@ import { CardContent, Grid, TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { DataGrid } from '@mui/x-data-grid';
-
+//Componentes
+import Empleado from './Empleado';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { obtenerEmpleadosAction } from '../actions/empleadoActions';
@@ -78,6 +79,9 @@ function Empleados() {
 
   }, [])
 
+  //Obtener el State
+  const empleados = useSelector( state => state.empleados.empleados )
+  console.log(empleados)
 
   return (
     <>
@@ -86,6 +90,14 @@ function Empleados() {
             Agregar Nuevo Empleado
       </h2>
       </div>
+        {empleados.length === 0 ? 'No hay empleados' : (
+          empleados.map(empleado => (
+            <Empleado
+              key={empleado.id}
+              empleado={empleado}
+            />
+          ))
+        )}
         <Grid alignItems="center" container spacing={3}>
             <Grid item xs={6} lg={4} md={4} marginLeft={6}>
                 <TextField
