@@ -9,6 +9,26 @@
       "salario": "200.000",
       "comision": "20",
       "id": 2
+    },
+    {
+      "nombre": "José",
+      "apellido": "Puente",
+      "email": "Jose@jose.com",
+      "telefono": 351531150,
+      "fechaAlta": "2011-11-11",
+      "salario": 15000,
+      "comision": 30,
+      "id": 3
+    },
+    {
+      "nombre": "Santiago",
+      "apellido": "Rodriguez",
+      "email": "santiagorodriguezardini@gmail.com",
+      "telefono": 3512528607,
+      "fechaAlta": "2011-11-11",
+      "salario": 50000,
+      "comision": 30,
+      "id": 4
     }
   ]
 }

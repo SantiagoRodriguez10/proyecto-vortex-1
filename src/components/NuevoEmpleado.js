@@ -62,23 +62,15 @@ function NuevoEmpleado() {
   //Mandar a llamar  al action de productoAction
   const agregarEmpleado = empleado => dispatch( crearNuevoEmpleadoAction(empleado) )
 
-/*   const validarEmail =(valor) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(valor)){
-     alert("La dirección de email " + valor + " es correcta.");
-    } else {
-     alert("La dirección de email es incorrecta.");
-    }
-  } */
+  
   //Cuando el usuario haga submit
   const submitNuevoEmpleado = e => {
       e.preventDefault()
 
-      const error = {}
-      let regex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
       //Validar formulario
       if( nombre.trim() === '' || 
           apellido.trim() === '' || 
-          !regex.test(email) || 
+          email.trim() === '' || 
           telefono <= 0 ||
           fechaAlta === null ||
           salario === 0 ||
