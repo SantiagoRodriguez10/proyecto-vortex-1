@@ -2,9 +2,19 @@ import {
     AGREGAR_EMPLEADO,
     AGREGAR_EMPLEADO_EXITO,
     AGREGAR_EMPLEADO_ERROR,
+
     COMENZAR_DESCARGA_EMPLEADOS,
     DESCARGA_EMPLEADOS_EXITO,
-    DESCARGA_EMPLEADOS_ERROR
+    DESCARGA_EMPLEADOS_ERROR,
+
+    OBTENER_EMPLEADO_EDITAR,
+    COMENZAR_EDICION_EMPLEADO ,
+    EMPLEADO_EDITADO_EXITO ,
+    EMPLEADO_EDITADO_ERROR ,
+
+    OBTENER_EMPLEADO_ELIMINAR,
+    EMPLEADO_ELIMINADO_EXITO,
+    EMPLEADO_ELIMINADO_ERROR
 } from '../types'
 import empleadoAxios from '../config/axios'
 
@@ -90,3 +100,77 @@ const descargaEmpleadosError = () => ({
     type: DESCARGA_EMPLEADOS_ERROR,
     payload: true
 })
+
+//Colocar empleado en edición
+export function obtenerEmpleadoEditar(empleado) {
+    return (dispatch) => {
+        dispatch( obtenerEmpleadoEditarAction(empleado) )
+    }
+}
+const obtenerEmpleadoEditarAction = empleado => ({
+    type: OBTENER_EMPLEADO_EDITAR,
+    payload: empleado
+})
+
+//Registra un producto en la API y en state
+export function editarEmpleadoAction(empleado) {
+    return async (dispatch) => {
+        dispatch( editarEmpleado() )
+        try {
+            await empleadoAxios.put(`employees/${empleado.id}`, empleado)
+            dispatch(editarEmpleadoExito(empleado) )
+        } catch (error) {
+            dispatch( editarEmpleadoError() ) 
+        }
+    }
+}
+const editarEmpleado = () => ({
+    type: COMENZAR_EDICION_EMPLEADO
+})
+
+const editarEmpleadoExito = empleado => ({
+    type: EMPLEADO_EDITADO_EXITO,
+    payload: empleado
+})
+
+const editarEmpleadoError = empleado => ({
+    type: EMPLEADO_EDITADO_ERROR,
+    payload: true
+})
+
+//Selecciona y elimina el producto
+export function borrarEmpleadoAction(empleado) {
+    return async (dispatch) => {
+        dispatch(obtenerEmpleadoEliminar(empleado))
+        
+        try {
+            await empleadoAxios.delete(`/employees/${empleado}`)
+            dispatch( eliminarEmpleadoExito() )
+
+            //Si se elimina, mostrar Alert
+            await Swal.fire(
+                'Eliminado!',
+                'El empleado se eliminó correctamente.',
+                'success'
+            )
+        } catch (error) {
+            console.log(error)
+            dispatch( eliminarEmpleadoError() )
+        }
+
+    }
+}
+
+const obtenerEmpleadoEliminar = empleado => ({
+    type: OBTENER_EMPLEADO_ELIMINAR,
+    payload: empleado
+})
+
+const eliminarEmpleadoExito = () => ({
+    type: EMPLEADO_ELIMINADO_EXITO
+})
+
+const eliminarEmpleadoError = () => ({
+    type: EMPLEADO_ELIMINADO_ERROR,
+    payload: true
+}) 

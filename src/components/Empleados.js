@@ -1,21 +1,27 @@
 import React, { useEffect } from 'react'
 import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from '@mui/material';
-import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Chip from '@mui/material/Chip';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+//SWAL2
+import Swal from 'sweetalert2';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { obtenerEmpleadosAction } from '../actions/empleadoActions';
+import { useNavigate } from 'react-router-dom';
+import { obtenerEmpleadosAction, borrarEmpleadoAction, obtenerEmpleadoEditar } from '../actions/empleadoActions';
+import DetalleEmpleado from './DetalleEmpleado';
 
-
-function Empleados() {
+function Empleados({empleado}) {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()//Habilitar history para redirección
 
   useEffect(()=> {
 
@@ -28,7 +34,44 @@ function Empleados() {
   //Obtener el State
   const empleados = useSelector( state => state.empleados.empleados )
   const error = useSelector(state => state.empleados.error)
+
+  //Funcion que redirige de forma programada
+  const redireccionarEdicion = empleado => {
+    dispatch( obtenerEmpleadoEditar(empleado) )
+    navigate(`/employees/edit/${empleado.id}`) 
+    console.log('empleado: ', empleado);
+}
+
+const redireccionarDetalle = empleado => {
+  dispatch( obtenerEmpleadoEditar(empleado) )
+  navigate(`/employees/detail/${empleado.id}`) 
+  console.log('empleado: ', empleado);
+}
   
+  //Confirmar si desea eliminar
+  const confirmarEliminarEmpleado = empleado => {
+    //Preguntar al usuario
+    Swal.fire({
+          title: 'Estás seguro?',
+          text: "Una vez eliminado no se puede recuperar!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          //Pasar al action
+          dispatch( borrarEmpleadoAction(empleado) )
+        }
+    }).then(() => {
+      window.location.href = window.location.href
+    })
+
+    
+  }
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -39,6 +82,7 @@ function Empleados() {
           <>
           <br></br>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
+        
         <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -51,11 +95,19 @@ function Empleados() {
                     <TableCell align='center'>FECHA DE ALTA</TableCell>
                     <TableCell align='center'>SALARIO</TableCell>
                     <TableCell align='center'>COMISIÓN</TableCell>
-                    <TableCell align='center'>ACCIÓN</TableCell>
+                    <TableCell align='center'>ACCIONES</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {empleados.map((row) => (
+                {empleados.lenght === [] ?
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    No hay ningún empleado — <strong>Agregá uno!</strong>
+                  </Alert>
+                </div>
+                  : ( 
+                  empleados.map((row) => (
                     <TableRow
                       key={row.id}
                       hover>
@@ -95,22 +147,28 @@ function Empleados() {
 
                       <TableCell align='center'>
                       <Button>
-                        <Link to={`/employees/edit/${row.id}`} >
                         <EditIcon
                           style={{ color: '#ffba00' }}
+                          onClick={ () => redireccionarEdicion(row) }
                         />
-                        </Link>
+                      </Button>
+                      <Button>
+                        <RemoveRedEyeIcon
+                          style={{ color: '#729d7e' }}
+                          onClick={ () => redireccionarDetalle(row) }
+                        />
                       </Button>
                       <Button>
                       <DeleteIcon
                          style={{ color: '#ff6961' }}
+                         onClick={()=> confirmarEliminarEmpleado(row.id)}
                         />
                       </Button>
                       </TableCell>
 
                     </TableRow>
-                  ))}
-
+                        ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>

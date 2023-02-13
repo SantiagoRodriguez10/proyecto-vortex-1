@@ -4,20 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Grid, Box, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { maxWidth } from '@mui/system';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 //Actions de Redux 
@@ -107,9 +104,11 @@ function NuevoEmpleado() {
         
         <CardContent>
           <br></br>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
           <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151"}}>
             Agregar Nuevo Empleado
           </h2>
+          </div>
           <br></br>
           <form onSubmit={submitNuevoEmpleado}>
           <Box sx={{ flexGrow: 1 }}>
@@ -213,7 +212,7 @@ function NuevoEmpleado() {
                   <Input
                     type='number'
                     id="standard-adornment-amount"
-                    startAdornment={<InputAdornment position="start">$ARS</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">%</InputAdornment>}
                     value={comision}
                     onChange={e=> guardarComision(Number(e.target.value))}
                   />
@@ -235,11 +234,20 @@ function NuevoEmpleado() {
         <br></br>
         <CardActions sx={{ display: 'flex', justifyContent: 'center' }} >
         <Stack direction="row" spacing={2}>
-      <Button onClick={submitNuevoEmpleado} variant="contained" endIcon={<SendIcon />}>
-        Guardar Nuevo Empleado
-      </Button>
-    </Stack>
+          <Button 
+            variant="contained" 
+            color='error' 
+            endIcon={<CancelIcon />}
+            onClick={()=>navigate('/')}
+            >
+            Cancelar 
+        </Button>
+        <Button onClick={submitNuevoEmpleado} variant="contained" endIcon={<SendIcon />}>
+          Guardar Nuevo Empleado
+        </Button>
+      </Stack>
         </CardActions>
+      <br></br>
       </Card>
     </div>
   )
