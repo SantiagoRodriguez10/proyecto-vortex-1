@@ -74,11 +74,11 @@ function NuevoEmpleado() {
       e.preventDefault()
 
       const error = {}
-      const regex = /^(?:\d{3}|\(\d{3}\))([-\/\.])\d{3}\1\d{4}$/;
+      let regex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
       //Validar formulario
       if( nombre.trim() === '' || 
           apellido.trim() === '' || 
-          email !== regex || 
+          !regex.test(email) || 
           telefono <= 0 ||
           fechaAlta === null ||
           salario === 0 ||
