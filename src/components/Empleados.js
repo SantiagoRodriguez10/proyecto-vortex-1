@@ -16,12 +16,12 @@ import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { obtenerEmpleadosAction, borrarEmpleadoAction, obtenerEmpleadoEditar } from '../actions/empleadoActions';
-import DetalleEmpleado from './DetalleEmpleado';
+
 
 function Empleados({empleado}) {
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()//Habilitar history para redirección
+  const navigate = useNavigate()
 
   useEffect(()=> {
 
@@ -34,6 +34,7 @@ function Empleados({empleado}) {
   //Obtener el State
   const empleados = useSelector( state => state.empleados.empleados )
   const error = useSelector(state => state.empleados.error)
+  console.log('empleados: ', empleados);
 
   //Funcion que redirige de forma programada
   const redireccionarEdicion = empleado => {
@@ -76,13 +77,12 @@ const redireccionarDetalle = empleado => {
     <>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
       <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151" }}>
-            Agregar Nuevo Empleado
+            Lista de Empleados
       </h2>
       </div>
           <>
           <br></br>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
-        
         <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -99,14 +99,15 @@ const redireccionarDetalle = empleado => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                {empleados.lenght === [] ?
+                {empleados.length === 0 ?
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Stack sx={{ width: '100%' }} spacing={2}>
                   <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    No hay ningún empleado — <strong>Agregá uno!</strong>
+                    No hay ningún empleado — <strong> Agrega uno!</strong>
                   </Alert>
+                  </Stack>
                 </div>
-                  : ( 
+                : ( 
                   empleados.map((row) => (
                     <TableRow
                       key={row.id}
@@ -167,22 +168,15 @@ const redireccionarDetalle = empleado => {
                       </TableCell>
 
                     </TableRow>
-                        ))
-                  )}
+                ))
+              )}
                 </TableBody>
               </Table>
             </TableContainer>
         </div>
-
-        <br></br>            
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Stack spacing={2}>
-          <Pagination count={5} defaultPage={1} color="primary" />
-        </Stack>
-        </div>
-        <br></br>
     </>
     </>
+    
   )
 }
 

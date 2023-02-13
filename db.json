@@ -1,3 +1,34 @@
 {
-  "employees": []
+  "employees": [
+    {
+      "nombre": "Jazmin",
+      "apellido": "Villarroel",
+      "email": "jazminvillarroel4@gmail.com",
+      "telefono": 3512528607,
+      "fechaAlta": "2023-03-03",
+      "salario": 123232,
+      "comision": 62,
+      "id": 1
+    },
+    {
+      "nombre": "Alicia",
+      "apellido": "Cepeda",
+      "email": "alicia@cepeda.com",
+      "telefono": 3517147100,
+      "fechaAlta": "2023-02-04",
+      "salario": 133222,
+      "comision": 16,
+      "id": 2
+    },
+    {
+      "nombre": "Santiago",
+      "apellido": "Rodriguez",
+      "email": "santiagorodriguezardini@gmail.com",
+      "telefono": 3515311527,
+      "fechaAlta": "2023-02-23",
+      "salario": 583421,
+      "comision": 15,
+      "id": 3
+    }
+  ]
 }

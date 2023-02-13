@@ -19,6 +19,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 //Actions de Redux 
 import { crearNuevoEmpleadoAction } from '../actions/empleadoActions.js'
+import { mostrarAlerta } from '../actions/alertaAction.js';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -43,7 +44,7 @@ function NuevoEmpleado() {
   //Accedo al state del store con useSelector
   const cargando = useSelector(state => state.empleados.loading)
   const error = useSelector(state => state.empleados.error)
-
+  const alerta = useSelector(state => state.alerta.alerta)
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -74,6 +75,12 @@ function NuevoEmpleado() {
           salario === 0 ||
           comision === 0
           ){
+
+            const alerta = {
+              classes: 'alert alert-danger text-center text-uppercase p3'
+            }
+            dispatch(mostrarAlerta(alerta))
+
             return
           }
       //Si no hay errores
@@ -110,6 +117,11 @@ function NuevoEmpleado() {
           </h2>
           </div>
           <br></br>
+          {alerta ? <p className={alerta.classes}>
+          <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="warning"> Cuidado! — Todos los campos son obligatorios</Alert>
+          </Stack>
+          </p> : null}
           <form onSubmit={submitNuevoEmpleado}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} sx={{ justifyContent: 'space-between' }}>
