@@ -1,34 +1,24 @@
 {
   "employees": [
     {
-      "nombre": "Mariano",
-      "apellido": "Tamagnone",
-      "email": "Marian@tama.com",
-      "telefono": 3517147100,
-      "fechaAlta": "2023-02-04",
-      "salario": "200.000",
-      "comision": "20",
-      "id": 2
+      "nombre": "Santiago",
+      "apellido": "Rodriguez",
+      "email": "Jose@jose.com",
+      "telefono": 23333,
+      "fechaAlta": "2020-07-11",
+      "salario": 5555,
+      "comision": 6666,
+      "id": 1
     },
     {
       "nombre": "José",
       "apellido": "Puente",
-      "email": "Jose@jose.com",
-      "telefono": 351531150,
+      "email": "jose@jose.com",
+      "telefono": 5489453453,
       "fechaAlta": "2011-11-11",
-      "salario": 15000,
-      "comision": 30,
-      "id": 3
-    },
-    {
-      "nombre": "Santiago",
-      "apellido": "Rodriguez",
-      "email": "santiagorodriguezardini@gmail.com",
-      "telefono": 3512528607,
-      "fechaAlta": "2011-11-11",
-      "salario": 50000,
-      "comision": 30,
-      "id": 4
+      "salario": 45435,
+      "comision": 15,
+      "id": 2
     }
   ]
 }
