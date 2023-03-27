@@ -12,10 +12,7 @@ import {
   Button,
   Chip,
   Stack,
-  Alert,
-  ToggleButton,
-  ToggleButtonGroup,
-  Grid
+  Alert
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -30,16 +27,10 @@ import { useNavigate } from 'react-router-dom';
 import { obtenerEmpleadosAction, borrarEmpleadoAction, obtenerEmpleadoEditar } from '../actions/empleadoActions';
 
 
-function Empleados({empleado}) {
+function Empleados() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  //Material UI ToggleButton
-  const [alignment, setAlignment] = React.useState('web');
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
 
   useEffect(()=> {
 
@@ -91,26 +82,6 @@ const redireccionarDetalle = empleado => {
 
   return (
     <>
-      <Grid container alignItems="center" justifyContent="space-between">
-          <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151", paddingLeft:530}}>
-                Lista de Empleados
-          </h2>
-        <Grid sx={{ display: 'flex', justifyContent: 'flex-end', paddingRight: 8, paddingTop: 2}}>
-          <ToggleButtonGroup
-            color="primary"
-            value={alignment}
-            exclusive
-            onChange={handleChange}
-            aria-label="Platform"
-            sx={{ alignSelf: "center" }}
-          >
-            <ToggleButton sx={{fontWeight: 'bold', borderWidth: 2}} value="web">Empleados</ToggleButton>
-            <ToggleButton sx={{fontWeight: 'bold'}} value="android">Activos</ToggleButton>
-          </ToggleButtonGroup>
-        </Grid>
-      </Grid>
-  
-          <>
           <br></br>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
         <TableContainer component={Paper}>
@@ -172,7 +143,6 @@ const redireccionarDetalle = empleado => {
                           </Stack>
                         </div>
                       </TableCell>
-
                       
                       {/* botones de accion, editar y eliminar */}
 
@@ -205,8 +175,6 @@ const redireccionarDetalle = empleado => {
             </TableContainer>
         </div>
     </>
-    </>
-    
   )
 }
 

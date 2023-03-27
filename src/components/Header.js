@@ -4,6 +4,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
 
 const Header  = () => {
 
@@ -24,12 +25,24 @@ const Header  = () => {
                 </Button>
               </Link>
               <Link to={'/employees/new'} style={{ textDecoration: 'none' }}>
+                <Grid container alignItems="center" justifyContent="space-between" >
+                  <Button 
+                      color="inherit"             
+                      size="large"
+                      sx={{ paddingLeft: 100}}>
+                      <a href='/employees/new' style={{ textDecoration: "none", color: "white"}}>Agregar Empleado </a>
+                  </Button>
+                </Grid>
+              </Link>
+              <Link to={'/assets/new'} style={{ textDecoration: 'none' }}>
+              <Grid>
                 <Button 
                     color="inherit"             
                     size="large"
                     sx={{ mr: 2}}>
-                    <a href='/employees/new' style={{ textDecoration: "none", color: "white"}}>Agrear Empleado </a>
+                    <a href='/assets/new' style={{ textDecoration: "none", color: "white"}}>Agregar Activo </a>
                 </Button>
+              </Grid>
               </Link>
             </Toolbar>
       </AppBar>

@@ -1,7 +1,9 @@
 import React from 'react';
 import Header from './components/Header';
-import Empleados from './components/Empleados';
+/* import Empleados from './components/Empleados'; */
+import Main from './components/ToggleButton';
 import NuevoEmpleado from './components/NuevoEmpleado';
+import NuevoActivo from './components/Activos/NuevoActivo';
 import EditarEmpleado from './components/EditarEmpleado';
 import DetalleEmpleado from './components/DetalleEmpleado';
 import { useRouteError } from 'react-router-dom';
@@ -28,8 +30,9 @@ function App() {
         <Header />
         <div>
           <Routes>
-            <Route exact path='/' element={<Empleados/>}  />
+            <Route exact path='/' element={<Main/>}  />
             <Route exact path='/employees/new' element={<NuevoEmpleado/>}/>
+            <Route exact path='/assets/new' element={<NuevoActivo/>}/>
             <Route exact path='/employees/edit/:employee_id' element={<EditarEmpleado/>}/>
             <Route exact path='/employees/detail/:employee_id' element={<DetalleEmpleado/>}/>
             <Route 
