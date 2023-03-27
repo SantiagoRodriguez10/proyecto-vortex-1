@@ -97,9 +97,9 @@ const redireccionarDetalleActivo = employee_id => {
   return (
     <>
           <br></br>
+          <EmployeeFilter onChange={updateFilteredEmployees}/>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
         <TableContainer component={Paper}>
-          <EmployeeFilter onChange={updateFilteredEmployees}/>
               <Table sx={$tableCells}>
                 <TableHead>
                   <TableRow>
