@@ -19,13 +19,12 @@ const EditarEmpleado = () => {
 
     //Nuevo state de producto
     const [ empleado, guardarEmpleado ] = useState({
-        nombre: '',
-        apellido: '',
-        email: '',
-        telefono: '',
-        fechaAlta: '',
-        salario: '',
-        comision: ''
+        first_name: '',
+        last_name: '',
+        cuit: '',
+        team_id: '',
+        join_date: '',
+        rol: ''
     })
 
     //Empleado a editar
@@ -76,10 +75,10 @@ const EditarEmpleado = () => {
                                     type="text"
                                     fullWidth
                                     required
-                                    name="nombre"
+                                    name="first_name"
                                     placeholder= 'Nombre del empleado'
                                     variant="outlined"
-                                    value={empleado.nombre}
+                                    value={empleado.first_name}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>
@@ -92,90 +91,74 @@ const EditarEmpleado = () => {
                                     type="text"
                                     fullWidth
                                     required
-                                    name="apellido"
+                                    name="last_name"
                                     placeholder= 'Apellido del empleado'
                                     variant="outlined"
-                                    value={empleado.apellido}
+                                    value={empleado.last_name}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>
                             
                             <Grid item xs={12} md={12}>
                                 <Box pb={1}>
-                                <Typography>Email:</Typography>
+                                <Typography>Cuit</Typography>
                                 </Box>
                                 <TextField
-                                    type="email"
+                                    type="text"
                                     fullWidth
                                     required
-                                    name="email"
-                                    placeholder= 'Email del empleado'
+                                    name="cuit"
+                                    placeholder= 'Cuit del empleado'
                                     variant="outlined"
-                                    value={empleado.email}
+                                    value={empleado.cuit}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>
 
                             <Grid item xs={12} md={12}>
                                 <Box pb={1}>
-                                <Typography>Teléfono:</Typography>
+                                <Typography>Team ID</Typography>
                                 </Box>
                                 <TextField
-                                    type="tel"
+                                    type="number"
                                     fullWidth
                                     required
-                                    name="telefono"
-                                    placeholder= 'Teléfono del empleado'
+                                    name="team_id"
+                                    placeholder= 'Team ID'
                                     variant="outlined"
-                                    value={empleado.telefono}
+                                    value={empleado.team_id}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>
 
                             <Grid item xs={12} md={12}>
                                 <Box pb={1}>
-                                <Typography>Fecha de Alta:</Typography>
+                                <Typography>Fecha de Alta</Typography>
                                 </Box>
                                 <TextField
                                     type="date"
                                     fullWidth
                                     required
-                                    name="fechaAlta"
+                                    name="join_date"
                                     placeholder= 'Fecha de alta'
                                     variant="outlined"
-                                    value={empleado.fechaAlta}
+                                    value={empleado.join_date}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>
 
                             <Grid item xs={12} md={12}>
                                 <Box pb={1}>
-                                <Typography>Salario:</Typography>
+                                <Typography>Rol</Typography>
                                 </Box>
                                 <TextField
-                                    type="number"
+                                    type="text"
                                     fullWidth
                                     required
-                                    name="salario"
-                                    placeholder= 'Salario'
+                                    name="rol"
+                                    placeholder= 'Rol del Empleado'
                                     variant="outlined"
-                                    value={empleado.salario}
-                                    onChange={onChangeFormulario}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12} md={12}>
-                                <Box pb={1}>
-                                <Typography>Comisión:</Typography>
-                                </Box>
-                                <TextField
-                                    type="number"
-                                    fullWidth
-                                    required
-                                    name="comision"
-                                    placeholder= 'Comisión'
-                                    variant="outlined"
-                                    value={empleado.comision}
+                                    value={empleado.rol}
                                     onChange={onChangeFormulario}
                                 />
                             </Grid>

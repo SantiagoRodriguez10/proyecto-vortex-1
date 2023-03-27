@@ -60,8 +60,7 @@ export default function( state = initialState, action ) {
                     ...state,
                     empleadoeditar: null,
                     empleados: state.empleados.map( empleado =>
-                        empleado.id === action.payload.id ? empleado = action.payload : 
-                        empleado    
+                    empleado.employee_id === action.payload.employee_id ? action.payload : empleado
                     )
                 }
             case OBTENER_EMPLEADO_ELIMINAR:

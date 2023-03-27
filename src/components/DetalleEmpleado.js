@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch ,useSelector } from 'react-redux';
-import { editarEmpleadoAction } from '../actions/empleadoActions'
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import { Grid, Box, TextField } from '@mui/material';
+import { Grid } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
-import SendIcon from '@mui/icons-material/Send';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import moment from "moment"
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
 const DetalleEmpleado = () => {
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-
+    
     //Nuevo state de producto
-    const [ empleado, guardarEmpleado ] = useState({
-        nombre: '',
-        apellido: '',
-        email: '',
-        telefono: '',
-        fechaAlta: '',
-        salario: '',
-        comision: ''
+     const [ empleado, guardarEmpleado ] = useState({
+        employee_id: '',
+        first_name: '',
+        last_name: '',
+        cuit: '',
+        team_id: '',
+        join_date: '',
+        rol: ''
     })
 
     //Empleado a editar
@@ -38,53 +46,74 @@ const DetalleEmpleado = () => {
 
 
     //Leer los datos del formulario
-    const onChangeFormulario = e => {
+/*     const onChangeFormulario = e => {
         guardarEmpleado({
             ...empleado,
             [e.target.name] : e.target.value
         })
-    }
+    } */
 
-    const submitEditarEmpleado = (e) => {
+    /* const submitEditarEmpleado = (e) => {
         e.preventDefault()
 
         dispatch(editarEmpleadoAction(empleado))
         
         navigate('/')
-    }
+    } */
 
     return ( 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Card style={{ maxWidth: 545, boxShadow:'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px', marginTop: 30, marginBottom: 50 }} >          
         <CardContent>
-            <div style={{ display: 'flex', justifyContent: 'center' }} >
-            <Typography color="textSecondary" gutterBottom style={{ color: '#515151'}}>
-                <h2>{empleado.nombre}</h2> <h2>{empleado.apellido}</h2>
-            </Typography>
-            </div>
-            <Typography color="textSecondary" >
-                ID de Empleado: <span style={{ color: '#515151'}}>{empleado.id}</span>
-            </Typography>
-            <br></br>
-            <Typography color="textSecondary">
-                Email: <span style={{ color: '#515151'}}>{empleado.email}</span>
-            </Typography>
-            <br></br>
-            <Typography color="textSecondary">
-                Telefono: <span style={{ color: '#515151'}}>{empleado.telefono}</span>
-            </Typography>
-            <br></br>
-            <Typography color="textSecondary">
-                Fecha de Ingreso: <span style={{ color: '#515151' }}>{empleado.fechaAlta}</span>
-            </Typography>
-            <br></br>
-            <Typography color="textSecondary">
-                Salario: <span style={{ color: '#515151'}}>{empleado.salario}</span>
-            </Typography>
-            <br></br>
-            <Typography color="textSecondary">
-                Comisión: <span style={{ color: '#515151'}}>%{empleado.comision}</span>
-            </Typography>
+            <Grid container >
+                <Grid item >
+                    <Item sx={$itemsContainer}>
+                        <Typography variant="h3" gutterBottom style={{ color: '#515151'}}>
+                            {empleado.last_name}, {empleado.first_name}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            ID de Empleado:
+                        </Typography>
+                        <Typography color="textSecondary" >
+                            {empleado.employee_id}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            Cuit:
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {empleado.cuit}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            Team ID:
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {empleado.team_id}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            Fecha de Ingreso:
+                        </Typography>
+                        <Typography color="textSecondary">
+                           {empleado.join_date ? moment(empleado.join_date).format('DD-MM-YYYY') : '----'}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            Rol:
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {empleado.rol}
+                        </Typography>
+                    </Item>
+                </Grid>   
+            </Grid>     
         </CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'center' }} >
             <Stack direction="row" spacing={2}>
@@ -105,3 +134,12 @@ const DetalleEmpleado = () => {
 }
  
 export default DetalleEmpleado
+
+//MATERAIL UI GRID
+  const $itemsContainer = {
+    display: "flex",
+    justifyContent: "flex-start",
+    boxShadow: 'none',
+    padding: 1
+  }
+  

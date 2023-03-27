@@ -23,16 +23,21 @@ import Swal from 'sweetalert2'
 
 //Creando nuevos empleados
 export function crearNuevoEmpleadoAction(empleado) {
+    console.log('crearNuevoEmpleadoAction ENTRÉ');
     return async (dispatch) => {
         dispatch( agregarEmpleado() )
 
         try {
-            //Insertar en el Json-Server
-            await empleadoAxios.post('/employees', empleado)
-
+            const respuesta = await empleadoAxios.post('api/employees/add', empleado, {
+                headers: {
+                    'mode': 'no-cors',
+                    'Content-Type': 'application/json'
+                }
+            }) 
             //Si tenemos exito en el request, actualizamos el state
             dispatch( agregarEmpleadoExito(empleado) )
-
+            console.log('crearNuevoEmpleadoAction - response: ', respuesta);
+            console.log('crearNuevoEmpleadoAction - empleado: ', empleado);
             //Llamo al SA2
             Swal.fire(
                 'Correcto',
@@ -40,7 +45,7 @@ export function crearNuevoEmpleadoAction(empleado) {
                 'success'
             )
         } catch (error) {
-            console.log(error)
+             console.log('crearNuevoEmpleadoAction - error: ', error);
             //Si hay un error modificar el state
             dispatch( agregarEmpleadoError(true) )
 
@@ -53,7 +58,6 @@ export function crearNuevoEmpleadoAction(empleado) {
         }
     }
 }
-
 const agregarEmpleado = () => ({
     type: AGREGAR_EMPLEADO,
     payload: true
@@ -71,13 +75,32 @@ const agregarEmpleadoError = estado => ({
     payload: estado
 })  
 
-//Funcion que descargan los empleados en la db
+//Funcion que me trae los empleados del back
 export function obtenerEmpleadosAction() {
     return async (dispatch) => {
-        dispatch( descargarEmpleados() )
-
         try {
-            const respuesta = await empleadoAxios.get('/employees')
+            const respuesta = await empleadoAxios.get('/api/employees/get', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }) 
+            dispatch( descargaEmpleadosExitosa(respuesta.data) )
+        } catch (error) {
+            console.log(error)
+            dispatch( descargaEmpleadosError() )
+        }
+    }
+}
+
+//Funcion que me trae los empleados que selecciono para ver
+export function obtenerEmpleadosPorIdAction() {
+    return async (dispatch) => {
+        try {
+            const respuesta = await empleadoAxios.get('/api/get/:employee_id', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }) 
             dispatch( descargaEmpleadosExitosa(respuesta.data) )
         } catch (error) {
             console.log(error)
@@ -112,15 +135,23 @@ const obtenerEmpleadoEditarAction = empleado => ({
     payload: empleado
 })
 
-//Registra un producto en la API y en state
+
+
+//Edita un empleado
 export function editarEmpleadoAction(empleado) {
     return async (dispatch) => {
         dispatch( editarEmpleado() )
         try {
-            await empleadoAxios.put(`employees/${empleado.id}`, empleado)
+            const respuesta = await empleadoAxios.put(`api/employees/update/${empleado.employee_id}`, empleado, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
             dispatch(editarEmpleadoExito(empleado) )
+            console.log(respuesta);
         } catch (error) {
             dispatch( editarEmpleadoError() ) 
+            console.log("put-error: ", error );
         }
     }
 }
@@ -144,17 +175,10 @@ export function borrarEmpleadoAction(empleado) {
         dispatch(obtenerEmpleadoEliminar(empleado))
         
         try {
-            await empleadoAxios.delete(`/employees/${empleado}`)
+            await empleadoAxios.delete(`/api/employees/delete/${empleado}`)
             dispatch( eliminarEmpleadoExito() )
-
-            //Si se elimina, mostrar Alert
-            await Swal.fire(
-                'Eliminado!',
-                'El empleado se eliminó correctamente.',
-                'success'
-            )
         } catch (error) {
-            console.log(error)
+            console.log("error-delete: ", error)
             dispatch( eliminarEmpleadoError() )
         }
 

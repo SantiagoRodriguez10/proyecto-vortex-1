@@ -1,15 +1,27 @@
+//React
 import React, { useEffect } from 'react'
-import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+//MaterialUI
+import { 
+  TableContainer, 
+  Table, 
+  TableHead, 
+  TableCell, 
+  TableRow, 
+  TableBody,
+  Paper,
+  Button,
+  Chip,
+  Stack,
+  Alert,
+  ToggleButton,
+  ToggleButtonGroup,
+  Grid
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Chip from '@mui/material/Chip';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import moment from "moment"
 //SWAL2
 import Swal from 'sweetalert2';
 //Redux
@@ -23,6 +35,12 @@ function Empleados({empleado}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  //Material UI ToggleButton
+  const [alignment, setAlignment] = React.useState('web');
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
   useEffect(()=> {
 
     //Consultar Api
@@ -34,19 +52,15 @@ function Empleados({empleado}) {
   //Obtener el State
   const empleados = useSelector( state => state.empleados.empleados )
   const error = useSelector(state => state.empleados.error)
-  console.log('empleados: ', empleados);
-
   //Funcion que redirige de forma programada
   const redireccionarEdicion = empleado => {
     dispatch( obtenerEmpleadoEditar(empleado) )
-    navigate(`/employees/edit/${empleado.id}`) 
-    console.log('empleado: ', empleado);
+    navigate(`/employees/edit/${empleado.employee_id}`)
 }
 
 const redireccionarDetalle = empleado => {
   dispatch( obtenerEmpleadoEditar(empleado) )
-  navigate(`/employees/detail/${empleado.id}`) 
-  console.log('empleado: ', empleado);
+  navigate(`/employees/detail/${empleado.employee_id}`) 
 }
   
   //Confirmar si desea eliminar
@@ -64,38 +78,53 @@ const redireccionarDetalle = empleado => {
     }).then((result) => {
         if (result.isConfirmed) {
           //Pasar al action
+          Swal.fire(
+            '¡Eliminado!',
+            'Su empleado ha sido eliminado correctamente.',
+            'success'
+          )
           dispatch( borrarEmpleadoAction(empleado) )
+          window.location.reload() 
         }
-    }).then(() => {
-      window.location.href = window.location.href
     })
-
-    
   }
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151" }}>
-            Lista de Empleados
-      </h2>
-      </div>
+      <Grid container alignItems="center" justifyContent="space-between">
+          <h2 className='text-center mb-4 font-weight-bold' style={{ color: "#515151", paddingLeft:530}}>
+                Lista de Empleados
+          </h2>
+        <Grid sx={{ display: 'flex', justifyContent: 'flex-end', paddingRight: 8, paddingTop: 2}}>
+          <ToggleButtonGroup
+            color="primary"
+            value={alignment}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+            sx={{ alignSelf: "center" }}
+          >
+            <ToggleButton sx={{fontWeight: 'bold', borderWidth: 2}} value="web">Empleados</ToggleButton>
+            <ToggleButton sx={{fontWeight: 'bold'}} value="android">Activos</ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+      </Grid>
+  
           <>
           <br></br>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
         <TableContainer component={Paper}>
-              <Table>
+              <Table sx={$tableCells}>
                 <TableHead>
                   <TableRow>
-                    <TableCell align='center'>ID</TableCell>
-                    <TableCell align='center'>NOMBRE</TableCell>
-                    <TableCell align='center'>APELLIDO</TableCell>
-                    <TableCell align='center'>EMAIL</TableCell>
-                    <TableCell align='center'>TELEFONO</TableCell>
-                    <TableCell align='center'>FECHA DE ALTA</TableCell>
-                    <TableCell align='center'>SALARIO</TableCell>
-                    <TableCell align='center'>COMISIÓN</TableCell>
-                    <TableCell align='center'>ACCIONES</TableCell>
+                    <TableCell sx={$tableCells} align='center'>ID</TableCell>
+                    <TableCell sx={$tableCells} align='center'>NOMBRE</TableCell>
+                    <TableCell sx={$tableCells} align='center'>APELLIDO</TableCell>
+                    <TableCell sx={$tableCells} align='center'>CUIT</TableCell>
+                    <TableCell sx={$tableCells} align='center'>FECHA DE ALTA</TableCell>
+                    <TableCell sx={$tableCells} align='center'>TEAM ID</TableCell>
+                    <TableCell sx={$tableCells} align='center'>ROL</TableCell>
+                    <TableCell sx={$tableCells} align='center'>ACCIONES</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -110,40 +139,41 @@ const redireccionarDetalle = empleado => {
                 : ( 
                   empleados.map((row) => (
                     <TableRow
-                      key={row.id}
+                      key={row.employee_id}
                       hover>
                       <TableCell align='center' component='th' scope='row'>
-                        {row.id}
+                        {row.employee_id}
                       </TableCell>
                       <TableCell align='center' component='th' scope='row'>
-                        {row.nombre}
+                        {row.first_name}
                       </TableCell>
                       <TableCell align='center' component='th' scope='row'>
-                        {row.apellido}
+                        {row.last_name}
                       </TableCell>
                       <TableCell align='center'>
-                        {row.email}
+                        {row.cuit}
                       </TableCell>
                       <TableCell align='center'>
-                        {row.telefono}
+                        {row.join_date ? moment(row.join_date).format('DD-MM-YYYY') : '----'}
                       </TableCell>
                       <TableCell align='center'>
-                        {row.fechaAlta}
+                        {row.team_id}
                       </TableCell>
                       <TableCell align='center'>
-                        ${row.salario}
-                      </TableCell>
-                      <TableCell align='center'>
-                          <div style={{ display: 'flex', justifyContent: 'center'}} >
+                        <div style={{ display: 'flex', justifyContent: 'center'}} >
+                          <Stack direction="row" spacing={1}>
                             <Chip 
-                              size="small" 
+                              icon={<PermIdentityIcon />}
+                              value={row.rol} 
+                              label={row.rol}
                               color="primary" 
-                              value={row.comision} 
-                              label={`% ${row.comision}`}
-                            /> 
-                          </div>
+                              variant="outlined"
+                            />
+                          </Stack>
+                        </div>
                       </TableCell>
 
+                      
                       {/* botones de accion, editar y eliminar */}
 
                       <TableCell align='center'>
@@ -162,7 +192,7 @@ const redireccionarDetalle = empleado => {
                       <Button>
                       <DeleteIcon
                          style={{ color: '#ff6961' }}
-                         onClick={()=> confirmarEliminarEmpleado(row.id)}
+                         onClick={()=> confirmarEliminarEmpleado(row.employee_id)}
                         />
                       </Button>
                       </TableCell>
@@ -181,3 +211,9 @@ const redireccionarDetalle = empleado => {
 }
 
 export default Empleados
+
+const $tableCells = {
+  fontWeight: 'bold', 
+  color: "#515151",
+  fontSize: 15
+}

@@ -30,8 +30,8 @@ function App() {
           <Routes>
             <Route exact path='/' element={<Empleados/>}  />
             <Route exact path='/employees/new' element={<NuevoEmpleado/>}/>
-            <Route exact path='/employees/edit/:id' element={<EditarEmpleado/>}/>
-            <Route exact path='/employees/detail/:id' element={<DetalleEmpleado/>}/>
+            <Route exact path='/employees/edit/:employee_id' element={<EditarEmpleado/>}/>
+            <Route exact path='/employees/detail/:employee_id' element={<DetalleEmpleado/>}/>
             <Route 
               path="*" 
               element={
