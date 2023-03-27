@@ -105,3 +105,33 @@ const agregarActivoError = estado => ({
     type: AGREGAR_ACTIVO_ERROR,
     payload: estado
 })  
+
+//Selecciona y elimina el activo
+export function borrarActivoAction(activos) {
+    return async (dispatch) => {
+        dispatch(obtenerActivoEliminar(activos))
+        
+        try {
+            await empleadoAxios.delete(`/api/assets/delete/${activos}`)
+            dispatch( eliminarActivoExito() )
+        } catch (error) {
+            console.log("error-delete: ", error)
+            dispatch( eliminarActivoError() )
+        }
+
+    }
+}
+
+const obtenerActivoEliminar = activos => ({
+    type: OBTENER_ACTIVO_ELIMINAR,
+    payload: activos
+})
+
+const eliminarActivoExito = () => ({
+    type: ACTIVO_ELIMINADO_EXITO
+})
+
+const eliminarActivoError = () => ({
+    type: ACTIVO_ELIMINADO_ERROR,
+    payload: true
+}) 

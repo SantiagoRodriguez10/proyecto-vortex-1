@@ -21,19 +21,12 @@ import Swal from 'sweetalert2';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { obtenerActivosAction } from '../../actions/activosAction';
+import { obtenerActivosAction, borrarActivoAction } from '../../actions/activosAction';
 
 function Activos() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  //Material UI ToggleButton
-  const [alignment, setAlignment] = React.useState('Empleados');
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    console.log('alignment: ', alignment);
-  };
 
   useEffect(()=> {
 
@@ -45,7 +38,7 @@ function Activos() {
 
   //Obtener el State
   const activos = useSelector( state => state.activos.activos)
-  const error = useSelector(state => state.empleados.error)
+  const error = useSelector(state => state.activos.error)
   //Funcion que redirige de forma programada
 /*   const redireccionarEdicion = empleado => {
     dispatch( obtenerEmpleadoEditar(empleado) )
@@ -58,7 +51,7 @@ function Activos() {
     } */
   
   //Confirmar si desea eliminar
-  /* const confirmarEliminarEmpleado = empleado => {
+  const confirmarEliminarActivo = activos => {
     //Preguntar al usuario
     Swal.fire({
           title: 'Estás seguro?',
@@ -74,14 +67,14 @@ function Activos() {
           //Pasar al action
           Swal.fire(
             '¡Eliminado!',
-            'Su empleado ha sido eliminado correctamente.',
+            'Su activo ha sido eliminado correctamente.',
             'success'
           )
-          dispatch( borrarEmpleadoAction(empleado) )
+          dispatch( borrarActivoAction(activos) )
           window.location.reload() 
         }
     })
-  } */
+  }
 
   return (
     <>
@@ -155,7 +148,7 @@ function Activos() {
                         <Button>
                         <DeleteIcon
                         style={{ color: '#ff6961' }}
-                        /* onClick={()=> confirmarEliminarEmpleado(row.employee_id)} */
+                        onClick={()=> confirmarEliminarActivo(row.assets_id)}
                         />
                         </Button>
                         </TableCell>
