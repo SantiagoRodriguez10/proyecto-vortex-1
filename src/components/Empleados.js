@@ -1,5 +1,5 @@
 //React
-import React, { useEffect } from 'react'
+import React, {  useState, useEffect } from 'react'
 //MaterialUI
 import { 
   TableContainer, 
@@ -15,6 +15,7 @@ import {
   Alert
 } from '@mui/material';
 import BackpackIcon from '@mui/icons-material/Backpack';
+import EmployeeFilter from './Filter';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -40,7 +41,13 @@ function Empleados() {
     cargarEmpleados()
 
   }, [])  
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
 
+  const updateFilteredEmployees = async (rol) => {
+    const response = await fetch(`/api/employees/filter?rol=${rol}`);
+    const data = await response.json();
+    setFilteredEmployees(data);
+  };
   //Obtener el State
   const empleados = useSelector( state => state.empleados.empleados )
   const error = useSelector(state => state.empleados.error)
@@ -92,6 +99,7 @@ const redireccionarDetalleActivo = employee_id => {
           <br></br>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
         <TableContainer component={Paper}>
+          <EmployeeFilter onChange={updateFilteredEmployees}/>
               <Table sx={$tableCells}>
                 <TableHead>
                   <TableRow>
