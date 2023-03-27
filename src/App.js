@@ -6,6 +6,7 @@ import NuevoEmpleado from './components/NuevoEmpleado';
 import NuevoActivo from './components/Activos/NuevoActivo';
 import EditarEmpleado from './components/EditarEmpleado';
 import DetalleEmpleado from './components/DetalleEmpleado';
+import DetalleActivo from './components/Activos/DetalleActivo';
 import { useRouteError } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import {Alert} from '@mui/material';
@@ -35,6 +36,7 @@ function App() {
             <Route exact path='/assets/new' element={<NuevoActivo/>}/>
             <Route exact path='/employees/edit/:employee_id' element={<EditarEmpleado/>}/>
             <Route exact path='/employees/detail/:employee_id' element={<DetalleEmpleado/>}/>
+            <Route exact path='/assets/detail/:employee_id' element={<DetalleActivo/>}/>
             <Route 
               path="*" 
               element={

@@ -108,7 +108,6 @@ export function obtenerEmpleadosPorIdAction() {
         }
     }
 }
-
 const descargarEmpleados = () => ({
     type: COMENZAR_DESCARGA_EMPLEADOS,
     payload: true

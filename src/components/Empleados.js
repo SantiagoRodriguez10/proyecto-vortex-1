@@ -14,6 +14,7 @@ import {
   Stack,
   Alert
 } from '@mui/material';
+import BackpackIcon from '@mui/icons-material/Backpack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -25,7 +26,7 @@ import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { obtenerEmpleadosAction, borrarEmpleadoAction, obtenerEmpleadoEditar } from '../actions/empleadoActions';
-
+import { obtenerActivosPorEmpleadoIdAction } from '../actions/activosAction';
 
 function Empleados() {
 
@@ -43,6 +44,7 @@ function Empleados() {
   //Obtener el State
   const empleados = useSelector( state => state.empleados.empleados )
   const error = useSelector(state => state.empleados.error)
+  
   //Funcion que redirige de forma programada
   const redireccionarEdicion = empleado => {
     dispatch( obtenerEmpleadoEditar(empleado) )
@@ -52,6 +54,11 @@ function Empleados() {
 const redireccionarDetalle = empleado => {
   dispatch( obtenerEmpleadoEditar(empleado) )
   navigate(`/employees/detail/${empleado.employee_id}`) 
+}
+
+const redireccionarDetalleActivo = employee_id => {
+  dispatch( obtenerActivosPorEmpleadoIdAction(employee_id) )
+  navigate(`/assets/detail/${employee_id.employee_id}`) 
 }
   
   //Confirmar si desea eliminar
@@ -166,7 +173,6 @@ const redireccionarDetalle = empleado => {
                         />
                       </Button>
                       </TableCell>
-
                     </TableRow>
                 ))
               )}

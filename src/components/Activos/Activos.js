@@ -134,18 +134,6 @@ function Activos() {
 
                     <TableCell align='center'>
                         <Button>
-                        <EditIcon
-                            style={{ color: '#ffba00' }}
-                            /* onClick={ () => redireccionarEdicion(row) } */
-                        />
-                        </Button>
-                        <Button>
-                        <RemoveRedEyeIcon
-                            style={{ color: '#729d7e' }}
-                            /* onClick={ () => redireccionarDetalle(row) } */
-                        />
-                        </Button>
-                        <Button>
                         <DeleteIcon
                         style={{ color: '#ff6961' }}
                         onClick={()=> confirmarEliminarActivo(row.assets_id)}

@@ -21,28 +21,28 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-const DetalleEmpleado = () => {
+const DetalleActivo = () => {
 
     const navigate = useNavigate()
     
     //Nuevo state de producto
-     const [ empleado, guardarEmpleado ] = useState({
-        employee_id: '',
-        first_name: '',
-        last_name: '',
-        cuit: '',
-        team_id: '',
-        join_date: '',
-        rol: ''
+     const [ activo, guardarActivo ] = useState({
+        name: '',
+        type: '',
+        code: '',
+        marca: '',
+        purchase_date: '',
+        description: '',
+        asset_id: ''
     })
 
-    //Empleado a editar
-    const empleadoeditar = useSelector( state => state.empleados.empleadoeditar)
+/*         //Empleado a editar
+        const activoeditar = useSelector( state => state.activos.activoeditar)
 
-    //Llenar el state automaticamente
-    useEffect ( ()=> {
-        guardarEmpleado(empleadoeditar)
-    }, [empleadoeditar])
+        //Llenar el state automaticamente
+        useEffect ( ()=> {
+            guardarActivo(activoeditar)
+        }, [activoeditar]) */
 
     return ( 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -52,47 +52,55 @@ const DetalleEmpleado = () => {
                 <Grid item >
                     <Item sx={$itemsContainer}>
                         <Typography variant="h3" gutterBottom style={{ color: '#515151'}}>
-                            {empleado.last_name}, {empleado.first_name}
+                            {activo.name}
                         </Typography>
                     </Item>
                     <Item sx={$itemsContainer}>
                         <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
-                            ID de Empleado:
+                            ID del Activo:
                         </Typography>
                         <Typography color="textSecondary" >
-                            {empleado.employee_id}
+                            {activo.asset_id}
                         </Typography>
                     </Item>
                     <Item sx={$itemsContainer}>
                         <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
-                            Cuit:
+                            Codigo:
                         </Typography>
                         <Typography color="textSecondary">
-                            {empleado.cuit}
+                            {activo.code}
                         </Typography>
                     </Item>
                     <Item sx={$itemsContainer}>
                         <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
-                            Team ID:
+                            Tipo:
                         </Typography>
                         <Typography color="textSecondary">
-                            {empleado.team_id}
+                            {activo.type}
                         </Typography>
                     </Item>
                     <Item sx={$itemsContainer}>
                         <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
-                            Fecha de Ingreso:
+                            Fecha de Compra:
                         </Typography>
                         <Typography color="textSecondary">
-                           {empleado.join_date ? moment(empleado.join_date).format('DD-MM-YYYY') : '----'}
+                           {activo.purchase_date ? moment(activo.purchase_date).format('DD-MM-YYYY') : '----'}
                         </Typography>
                     </Item>
                     <Item sx={$itemsContainer}>
                         <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
-                            Rol:
+                            Marca:
                         </Typography>
                         <Typography color="textSecondary">
-                            {empleado.rol}
+                            {activo.marca}
+                        </Typography>
+                    </Item>
+                    <Item sx={$itemsContainer}>
+                        <Typography sx={{ color: 'gray', fontWeight: 'bold', paddingRight: 2 }}>
+                            Descripcion:
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {activo.description}
                         </Typography>
                     </Item>
                 </Grid>   
@@ -116,7 +124,7 @@ const DetalleEmpleado = () => {
     );
 }
  
-export default DetalleEmpleado
+export default DetalleActivo
 
 //MATERAIL UI GRID
   const $itemsContainer = {

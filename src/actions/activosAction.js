@@ -37,7 +37,22 @@ export function obtenerActivosAction() {
         }
     }
 }
-
+//Funcion que me trae los activos segun el id del empleado
+export function obtenerActivosPorEmpleadoIdAction() {
+    return async (dispatch) => {
+        try {
+            const respuesta = await empleadoAxios.get('/api/assets/employees/:employee_id/assets', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }) 
+            dispatch( descargaActivosExitosa(respuesta.data) )
+        } catch (error) {
+            console.log(error)
+            dispatch( descargaActivosError() )
+        }
+    }
+}
 const descargarActivos = () => ({
     type: COMENZAR_DESCARGA_ACTIVOS,
     payload: true
@@ -134,4 +149,4 @@ const eliminarActivoExito = () => ({
 const eliminarActivoError = () => ({
     type: ACTIVO_ELIMINADO_ERROR,
     payload: true
-}) 
+})
