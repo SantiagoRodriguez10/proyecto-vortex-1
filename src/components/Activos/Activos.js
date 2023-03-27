@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 //MaterialUI
 import { 
   TableContainer, 
@@ -13,8 +13,6 @@ import {
   Alert
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import moment from "moment"
 //SWAL2
 import Swal from 'sweetalert2';
@@ -22,6 +20,7 @@ import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { obtenerActivosAction, borrarActivoAction } from '../../actions/activosAction';
+import FilterActivos from './FilterActivos'
 
 function Activos() {
 
@@ -39,18 +38,13 @@ function Activos() {
   //Obtener el State
   const activos = useSelector( state => state.activos.activos)
   const error = useSelector(state => state.activos.error)
-  //Funcion que redirige de forma programada
-/*   const redireccionarEdicion = empleado => {
-    dispatch( obtenerEmpleadoEditar(empleado) )
-    navigate(`/employees/edit/${empleado.employee_id}`)
-    } */
+  const [filteredEmployees, setFilteredActives] = useState([]);
 
-    /* const redireccionarDetalle = empleado => {
-    dispatch( obtenerEmpleadoEditar(empleado) )
-    navigate(`/employees/detail/${empleado.employee_id}`) 
-    } */
-  
-  //Confirmar si desea eliminar
+  const updateFilteredAssets = async (type) => {
+    const response = await fetch(`/api/assets/filter?type=${type}`);
+    const data = await response.json();
+    setFilteredActives(data);
+  };
   const confirmarEliminarActivo = activos => {
     //Preguntar al usuario
     Swal.fire({
@@ -79,6 +73,7 @@ function Activos() {
   return (
     <>
         <br></br>
+        <FilterActivos onChange={updateFilteredAssets}/>
         <div style={{ display: 'flex', justifyContent: 'center'  }}>
         <TableContainer component={Paper}>
                 <Table sx={$tableCells}>
